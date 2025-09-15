@@ -11,5 +11,5 @@ jobs:
       - name: Print Hello World
         run: echo "Hello, GitHub Actions!"
       - name: ping google
-        run: ping -c4 google.com
+        run:  curl -I https://google.com
 
