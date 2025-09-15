@@ -3,7 +3,7 @@ name: Docker Build & Push
 on:
   push:
     branches:
-      - main  # Run only when pushing to the main branch
+      - main  # Only run when pushing to main
 
 jobs:
   docker:
@@ -14,34 +14,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Debug step - confirm we are in the correct directory
-      - name: Show current directory and files
+      # 2. Debug to confirm where we are
+      - name: Debug - show current directory and files
         run: |
-          echo "Current directory:"
+          echo "PWD is:"
           pwd
-          echo "Files in current directory:"
-          ls -al
+          echo "Files are:"
+          ls -R
 
       # 3. Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       # 4. Log in to Docker Hub
-      - name: Log in to Docker Hub
+      - name: Docker Login
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 5. Build and push Docker image in one step
-      - name: Build and Push Docker image
-        run: |
-          docker buildx build \
-            --platform linux/amd64 \
-            --tag ${{ secrets.DOCKER_USERNAME }}/myapp:latest \
-            --push \
-            .
-
-      # 6. Verify image was pushed (optional)
-      - name: Verify Docker image
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+      # 5. Build and push Docker image
+      - name: Build and Push
+        run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest --push .
