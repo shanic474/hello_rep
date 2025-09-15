@@ -27,5 +27,10 @@ jobs:
           echo "Hello from inside a file!" > test-folder/file.txt
           echo "Contents of test-folder:"
           ls -la test-folder
+      - name: print hello world
+        run: echo “Hello World”
+      - name: docker v
+        run: docker -v
+
 
 
