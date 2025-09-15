@@ -10,6 +10,6 @@ jobs:
         uses: actions/checkout@v4  # It just does git clone but for the repo that you are currently using
       - name: Print Hello World
         run: echo "Hello, GitHub Actions!"
-      - name:  use the ‘ping -c 4’ command
-        run: ping -c4 google
+      - name: ping google
+        run: ping -c4 google.com
 
