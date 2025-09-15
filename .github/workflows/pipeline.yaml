@@ -14,6 +14,8 @@ jobs:
         run:  curl -I https://google.com
       - name: ls -la check
         run:  ls -la
+      - name: Make script executable
+        run: chmod +x ./show_time_israel.sh
       - name: show data and time
         run: ./show_time_israel.sh
 
