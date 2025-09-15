@@ -19,6 +19,6 @@ jobs:
       - name: show data and time
         run: ./show_time_israel.sh
       - name: show ployndrom number
-        run: python 3 ./polyndrom.py
+        run: python3 ./polyndrom.py
 
 
