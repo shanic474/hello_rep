@@ -12,4 +12,7 @@ jobs:
         run: echo "Hello, GitHub Actions!"
       - name: ping google
         run:  curl -I https://google.com
+      - name: ls -la check
+        run:  ls -la
+
 
