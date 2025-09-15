@@ -1,29 +1,47 @@
 name: Docker Build & Push
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Run only when pushing to the main branch
 
 jobs:
   docker:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Debug current directory
+      # 2. Debug step - confirm we are in the correct directory
+      - name: Show current directory and files
         run: |
+          echo "Current directory:"
           pwd
+          echo "Files in current directory:"
           ls -al
 
+      # 3. Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 4. Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        working-directory: .
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+      # 5. Build and push Docker image in one step
+      - name: Build and Push Docker image
+        run: |
+          docker buildx build \
+            --platform linux/amd64 \
+            --tag ${{ secrets.DOCKER_USERNAME }}/myapp:latest \
+            --push \
+            .
 
-      - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+      # 6. Verify image was pushed (optional)
+      - name: Verify Docker image
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/myapp:latest
