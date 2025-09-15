@@ -31,6 +31,8 @@ jobs:
         run: echo “Hello World”
       - name: docker v
         run: docker -v
+      - name: run Dockerfile
+        run: ./Dockerfile
 
 
 
