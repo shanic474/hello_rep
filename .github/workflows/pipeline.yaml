@@ -21,4 +21,11 @@ jobs:
       - name: show ployndrom number
         run: python3 ./polyndrom.py
 
+      - name: create folder and file
+        run: |
+          mkdir -p test-folder
+          echo "Hello from inside a file!" > test-folder/file.txt
+          echo "Contents of test-folder:"
+          ls -la test-folder
+
 
