@@ -33,6 +33,8 @@ jobs:
         run: docker -v
       - name: build docker image
         run: docker build -t myapp/latest .
+      - name: push image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
 
 
