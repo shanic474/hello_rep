@@ -18,6 +18,8 @@ jobs:
         run: chmod +x ./show_time_israel.sh
       - name: show data and time
         run: ./show_time_israel.sh
+        name: Make script executable
+        run: chmod +x ./polyndrom.py
       - name: show ployndrom number
         run: ./polyndrom.py
 
