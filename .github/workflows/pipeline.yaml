@@ -1,41 +1,68 @@
 name: My First Action
 
-on: push  # Runs when code is pushed
+on:
+  push: # Trigger on every push
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
+
     steps:
+      # 1. Checkout repository code
       - name: Checkout code
-        uses: actions/checkout@v4  # It just does git clone but for the repo that you are currently using
+        uses: actions/checkout@v4
+
+      # 2. Print Hello World
       - name: Print Hello World
         run: echo "Hello, GitHub Actions!"
-      - name: ping google
-        run:  curl -I https://google.com
-      - name: ls -la check
-        run:  ls -la
-      - name: Make script executable
+
+      # 3. Ping Google
+      - name: Ping Google
+        run: curl -I https://google.com
+
+      # 4. List repository files
+      - name: List files
+        run: ls -la
+
+      # 5. Make shell script executable
+      - name: Make show_time_israel.sh executable
         run: chmod +x ./show_time_israel.sh
-      - name: show data and time
+
+      # 6. Run the shell script to show Israel date/time
+      - name: Show date and time in Israel
         run: ./show_time_israel.sh
-      - name: show ployndrom number
+
+      # 7. Run Python script to check palindrome number
+      - name: Show palindrome number
         run: python3 ./polyndrom.py
 
-      - name: create folder and file
+      # 8. Create folder and file
+      - name: Create folder and file
         run: |
           mkdir -p test-folder
           echo "Hello from inside a file!" > test-folder/file.txt
           echo "Contents of test-folder:"
           ls -la test-folder
-      - name: print hello world
-        run: echo “Hello World”
-      - name: docker v
+
+      # 9. Print another Hello World
+      - name: Print Hello World again
+        run: echo "Hello World"
+
+      # 10. Docker version
+      - name: Docker version
         run: docker -v
+
+      # 11. Login to Docker Hub
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 12. Build Docker image
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
 
+      # 13. Push Docker image
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
-
-
-
