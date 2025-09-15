@@ -31,8 +31,8 @@ jobs:
         run: echo “Hello World”
       - name: docker v
         run: docker -v
-      - name: build docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
+      - name: Build Docker image
+        run: docker build --progress=plain -t ${{ secrets.DOCKER_USERNAME }}/myapp:latest .
       - name: push image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
