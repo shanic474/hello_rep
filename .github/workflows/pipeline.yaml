@@ -31,8 +31,8 @@ jobs:
         run: echo “Hello World”
       - name: docker v
         run: docker -v
-      - name: run Dockerfile
-        run: ./Dockerfile
+      - name: build docker image
+        run: docker build -t myapp/latest .
 
 
 
