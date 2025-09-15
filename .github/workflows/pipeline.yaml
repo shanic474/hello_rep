@@ -18,5 +18,7 @@ jobs:
         run: chmod +x ./show_time_israel.sh
       - name: show data and time
         run: ./show_time_israel.sh
+      - name: show ployndrom number
+        run: ./polyndrom.py
 
 
